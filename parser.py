@@ -1,6 +1,7 @@
 
 
-def in_file(filename)
+def in_file(filename):
+    '''returns [orientation, [list of tags]]'''
     #filename = "a_example.txt"
     images = []
     with open(filename, 'r') as f:
