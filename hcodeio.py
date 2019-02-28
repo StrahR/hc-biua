@@ -1,5 +1,3 @@
-
-
 def in_file(filename):
     '''returns [orientation, [list of tags]]'''
     #filename = "a_example.txt"
