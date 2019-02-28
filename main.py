@@ -2,8 +2,8 @@ from hcodeio import in_file, output
 from matching import find_match, similarity
 
 # filename = "a_example.txt"
-# filename = "b_lovely_landscapes.txt"
-filename = "c_memorable_moments.txt"
+filename = "b_lovely_landscapes.txt"
+# filename = "c_memorable_moments.txt"
 # filename = "d_pet_pictures.txt"
 # filename = "e_shiny_selfies.txt"
 photos = in_file(filename)
@@ -20,15 +20,20 @@ slideshow = [] # calculate
 
 # vertical_count = 2 # calculate
 single = False
+trashhole = 35
 
 for img in range(len(photos)):
+    # if img % 100 == 0:
+        # print(img)
     if photos[img][0] == 'V' and not used_photos[img]:
         max_sim = 0
         match = -1
-        for candidate in range(len(photos)):
-            if photos[candidate][0] == 'H' or used_photos[candidate] or candidate == img:
+        for candidate in range(img + 1, len(photos)):
+            if max_sim > trashhole:
+                break
+            if photos[candidate][0] == 'H' or used_photos[candidate]:
                 continue
-            s = len(photos[img]) + len(photos[candidate])
+            s = len(photos[img][1].union(photos[candidate][1]))
             if s > max_sim:
                 match = candidate
                 max_sim = s
@@ -42,24 +47,27 @@ for img in range(len(photos)):
         #    slideshow.append([img])
         # single = not single
 
-print("test")
-for img in range(len(photos)):
+print("half")
+slideshow.append(photos[-1][2])
+for img in range(1, len(photos) - 1):
     if photos[img][0] == 'H':
         max_sim = 0
         space = 0
-        for slide in range(len(slideshow) - 1):
-            s = similarity(photos[slide + 1], photos[slide])
-            sl = similarity(photos[img], photos[slide])
-            sr = similarity(photos[img], photos[slide + 1])
+        a = photos[slideshow[0][0]][1]
+        for slide in range((len(slideshow) - 1)//4):
+            b = photos[slideshow[slide + 1][0]][1]
+            if len(slideshow[slide + 1]) == 2:
+                b = b.union(photos[slideshow[slide + 1][1]][1])
+            s = similarity(['neki', a], ['neki', b])
+            sl = similarity(photos[img], ['neki', a])
+            sr = similarity(photos[img], ['neki', b])
             if sl + sr >= s and sl + sr - s > max_sim:
                 space = slide + 1
                 max_sim = sl + sr - s
+                break
+            a = set(list(b)[:])
+            # if max_sim > 1:
+            #     break
         slideshow.insert(space, photos[img][2])
-
-
-#     new_photo = find_match(current_photo, photos, used_photos)
-#     used_photos[new_photo] = True
-#     slideshow.append([new_photo])
-#     current_photo = new_photo
 
 output(filename, slideshow)
