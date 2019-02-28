@@ -11,4 +11,6 @@ def in_file(filename):
             images.append([orientation, tags])
     return images
 
-print(images)
+
+if __name__=="__main__":
+    print(in_file('a_example.txt'))
