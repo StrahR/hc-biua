@@ -1,7 +1,9 @@
-from hcodeio import in_file
+from hcodeio import in_file, output
 from matching import find_match, similarity
 
-photos = in_file("a_example.txt")
+
+filename = "a_example.txt"
+photos = in_file(filename)
 
 used_photos = [False] * len(photos)
 
@@ -9,9 +11,12 @@ used_photos[0] = True
 
 current_photo = 0
 
-slideshow = [current_photo]
+slideshow = [[current_photo]]
 
 for i in range(len(photos)):
     new_photo = find_match(current_photo, photos, used_photos)
     used_photos[new_photo] = True
-    slideshow.append(new_photo)
+    slideshow.append([new_photo])
+    current_photo = new_photo
+
+output(filename, slideshow)

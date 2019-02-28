@@ -10,7 +10,7 @@ def find_match(image, images: list, used_images: list):
     for i in range(len(images)):
         if used_images[i] == True:
             continue
-        s = similarity(image, images[i])
+        s = similarity(images[image], images[i])
         if s < max_similarity:
             max_similarity = s
             simlar_image_i = i

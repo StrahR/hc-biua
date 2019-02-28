@@ -6,7 +6,7 @@ def in_file(filename):
         line_count = f.readline()
         for i in range(int(line_count)):
             orientation, tags_count, *tags = f.readline().split()
-            images.append([orientation, tags])
+            images.append([orientation, set(tags)])
     return images
 
 
