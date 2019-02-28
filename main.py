@@ -1,3 +1,6 @@
+from hcodeio import in_file
+from matching import find_match, similarity
+
 photos = in_file("a_example.txt")
 
 used_photos = [False] * len(photos)
