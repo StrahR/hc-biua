@@ -1,8 +1,11 @@
 from hcodeio import in_file, output
 from matching import find_match, similarity
 
-
-filename = "b_lovely_landscapes.txt"
+# filename = "a_example.txt"
+# filename = "b_lovely_landscapes.txt"
+filename = "c_memorable_moments.txt"
+# filename = "d_pet_pictures.txt"
+# filename = "e_shiny_selfies.txt"
 photos = in_file(filename)
 
 used_photos = [False] * len(photos)
