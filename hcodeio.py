@@ -1,3 +1,5 @@
+
+
 def in_file(filename):
     '''returns [orientation, [list of tags]]'''
     #filename = "a_example.txt"
@@ -10,5 +12,15 @@ def in_file(filename):
     return images
 
 
+def output(filename: str, slides: list):
+    with open(filename[:-4]+"_out.txt", 'w') as f:
+        f.write(str(len(slides))+'\n')
+        for slide in slides:
+            line = ""
+            for integer in slide:
+                line += str(integer)+" "
+            f.write(line[:-1]+'\n')
+
 if __name__=="__main__":
     print(in_file('a_example.txt'))
+    print(output("test", [[0], [3], [1,2]]))
